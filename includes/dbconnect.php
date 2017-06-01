@@ -7,7 +7,7 @@
  define('DBHOST', 'localhost');
  define('DBUSER', 'root');
  define('DBPASS', '');
- define('DBNAME', 'split_excelsheets');
+ define('DBNAME', 'spreadsheets_plot');
 
  $conn = mysql_connect(DBHOST, DBUSER, DBPASS);
  $dbcon = mysql_select_db(DBNAME);

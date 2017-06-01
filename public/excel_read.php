@@ -716,7 +716,7 @@
             height: 30px;
             font-family: Josefin Sans;
         }";
-    echo "</style>";
+    echo "</style>"/
 
     echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapis.com/css?family=Josefin+Sans\" />";
 ?>

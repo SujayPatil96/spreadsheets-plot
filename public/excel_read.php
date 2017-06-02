@@ -3,7 +3,7 @@
     //  Include PHPExcel_IOFactory
     include '../includes/PHPExcel/Classes/PHPExcel.php';
 
-    $inputFileName = 'data/Area.xls';
+    $inputFileName = 'data/one_row/Area.xls';
 
     //  Read your Excel workbook
     try {
@@ -20,6 +20,8 @@
     $highestColumn = $sheet->getHighestColumn();    // returns a char
 
     echo "The number of rows in the excel sheet is: " . $highestRow  . "<br />";
+    $rowCount = $highestRow  - 2;
+    echo "The number of rows in the excel sheet to be considered: " . $rowCount . "<br />";
 
     // Get the column number ,i.e., convert the char to an int
     $colNumber = PHPExcel_Cell::columnIndexFromString($highestColumn);
@@ -80,7 +82,7 @@
 ?>
 
 <?php
-    $inputFileName = 'data/Volume.xls';
+    $inputFileName = 'data/one_row/Volume.xls';
 
     //  Read your Excel workbook
     try {
@@ -152,7 +154,7 @@
 ?>
 
 <?php
-    $inputFileName = 'data/Sphericity.xls';
+    $inputFileName = 'data/one_row/Sphericity.xls';
 
     //  Read your Excel workbook
     try {
@@ -366,7 +368,7 @@
     echo "</table>";
 ?>
 <?php
-    $inputFileName = 'data/Intensity Mean Ch=3.xls';
+    $inputFileName = 'data/one_row/Intensity Mean Ch=3.xls';
 
     //  Read your Excel workbook
     try {
@@ -437,7 +439,7 @@
     echo "</table>";
 ?>
 <?php
-    $inputFileName = 'data/Intensity Mean Ch=4.xls';
+    $inputFileName = 'data/one_row/Intensity Mean Ch=4.xls';
 
     //  Read your Excel workbook
     try {
@@ -508,7 +510,7 @@
     echo "</table>";
 ?>
 <?php
-    $inputFileName = 'data/Intensity Mean Ch=5.xls';
+    $inputFileName = 'data/one_row/Intensity Mean Ch=5.xls';
 
     //  Read your Excel workbook
     try {
@@ -579,75 +581,79 @@
     echo "</table>";
 ?>
 <?php
-    $inputFileName = 'data/Intensity Mean Ch=6.xls';
+    if ($rowCount == 2) {
+        $inputFileName = 'data/one_row/Intensity Mean Ch=6.xls';
 
-    //  Read your Excel workbook
-    try {
-        $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
-        $objReader = PHPExcel_IOFactory::createReader($inputFileType);
-        $objPHPExcel = $objReader->load($inputFileName);
-    } catch(Exception $e) {
-        die('Error loading file "'.pathinfo($inputFileName, PATHINFO_BASENAME).'": '.$e->getMessage());
+        //  Read your Excel workbook
+        try {
+            $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+            $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+            $objPHPExcel = $objReader->load($inputFileName);
+        } catch(Exception $e) {
+            die('Error loading file "'.pathinfo($inputFileName, PATHINFO_BASENAME).'": '.$e->getMessage());
+        }
+
+        //  Get worksheet dimensions
+        $sheet = $objPHPExcel->getSheet(0);
+        $highestRow = $sheet->getHighestRow();
+        $highestColumn = $sheet->getHighestColumn();    // returns a char
+
+        // Get the column number ,i.e., convert the char to an int
+        $colNumber = PHPExcel_Cell::columnIndexFromString($highestColumn);
+
+        $subsetSeq = [];
+        $j = 0;
+        $comb = [];
+        //  Loop through each row of the worksheet in turn
+        for ($row = 3; $row <= $highestRow; $row++){
+            //  Read a row of data into an array
+            $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+
+            for ($i=0 ; $i < $colNumber ; $i++) {
+                $subsetSeq[$j] = $rowData[0][$i];
+                $j++;
+            }
+        }
+
+        echo "<hr />";
+
+        // processing to reverse all the values in associative array
+        $k = array_keys($subsetSeq);
+
+        $v = array_values($subsetSeq);
+
+        $rv = array_reverse($v);
+
+        $b = array_combine($k, $rv);
+
+        $array17 = [];
+        $array18 = [];
+        $array17 = array_slice($b, 0, 6);
+        $array18 = array_slice($b, 6, 10);
+
+        print_r($array18);
+        echo "<br />";
+        print_r($array17);
+
+        echo "<hr />";
+
+        // output the array data into an HTML table
+        echo "<table>";
+            echo "<tr>";
+            foreach ($array18 as $row) {
+                echo "<td>$row</td>";
+            }
+            echo "</tr>";
+
+            echo "<tr>";
+            foreach ($array17 as $row) {
+                echo "<td>$row</td>";
+            }
+            echo "</tr>";
+        echo "</table>";
+    } else {
+        echo "<hr /><p>There exists no file for Intensity Mean Ch = 6</p>" ;
     }
-
-    //  Get worksheet dimensions
-    $sheet = $objPHPExcel->getSheet(0);
-    $highestRow = $sheet->getHighestRow();
-    $highestColumn = $sheet->getHighestColumn();    // returns a char
-
-    // Get the column number ,i.e., convert the char to an int
-    $colNumber = PHPExcel_Cell::columnIndexFromString($highestColumn);
-
-    $subsetSeq = [];
-    $j = 0;
-    $comb = [];
-    //  Loop through each row of the worksheet in turn
-    for ($row = 3; $row <= $highestRow; $row++){
-        //  Read a row of data into an array
-        $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
-
-        for ($i=0 ; $i < $colNumber ; $i++) {
-            $subsetSeq[$j] = $rowData[0][$i];
-            $j++;
-        }
-    }
-
-    echo "<hr />";
-
-    // processing to reverse all the values in associative array
-    $k = array_keys($subsetSeq);
-
-    $v = array_values($subsetSeq);
-
-    $rv = array_reverse($v);
-
-    $b = array_combine($k, $rv);
-
-    $array17 = [];
-    $array18 = [];
-    $array17 = array_slice($b, 0, 6);
-    $array18 = array_slice($b, 6, 10);
-
-    print_r($array18);
-    echo "<br />";
-    print_r($array17);
-
-    echo "<hr />";
-
-    // output the array data into an HTML table
-    echo "<table>";
-        echo "<tr>";
-        foreach ($array18 as $row) {
-            echo "<td>$row</td>";
-        }
-        echo "</tr>";
-
-        echo "<tr>";
-        foreach ($array17 as $row) {
-            echo "<td>$row</td>";
-        }
-        echo "</tr>";
-    echo "</table>";
 ?>
 
 <?php
@@ -657,41 +663,66 @@
     // this segment of the sript is meant to combine the individual arrays into a single table
     echo "<table>";
         // all the row/column processing code goes here
-        echo "<tr>";
-            echo "<th>ID</th>";
-            echo "<th>Area</th>";
-            echo "<th>Sphericity</th>";
-            echo "<th>Volume</th>";
-            echo "<th>intensity Mean Ch = 1</th>";
-            echo "<th>intensity Mean Ch = 2</th>";
-            echo "<th>intensity Mean Ch = 3</th>";
-            echo "<th>intensity Mean Ch = 4</th>";
-            echo "<th>intensity Mean Ch = 5</th>";
-            echo "<th>intensity Mean Ch = 6</th>";
-        echo "</tr>";
+        if ($rowCount == 2) {
+            echo "<tr>";
+                echo "<th>ID</th>";
+                echo "<th>Area</th>";
+                echo "<th>Sphericity</th>";
+                echo "<th>Volume</th>";
+                echo "<th>intensity Mean Ch = 1</th>";
+                echo "<th>intensity Mean Ch = 2</th>";
+                echo "<th>intensity Mean Ch = 3</th>";
+                echo "<th>intensity Mean Ch = 4</th>";
+                echo "<th>intensity Mean Ch = 5</th>";
+                echo "<th>intensity Mean Ch = 6</th>";
+            echo "</tr>";
 
-        echo "<tr>";
-            echo "<td>$array2[0]</td>";
-            echo "<td>$array2[4]</td>";
-            echo "<td>$array4[4]</td>";
-            echo "<td>$array6[4]</td>";
-            echo "<td>$array8[5]</td>";
-            echo "<td>$array10[5]</td>";
-            echo "<td>$array12[5]</td>";
-            echo "<td>$array14[5]</td>";
-            echo "<td>$array16[5]</td>";
-            echo "<td>$array18[5]</td>";
-        echo "</tr>";
-            echo "<td>$array1[0]</td>";
-            echo "<td>$array1[4]</td>";
-            echo "<td>$array3[4]</td>";
-            echo "<td>$array5[4]</td>";
-            echo "<td>$array7[5]</td>";
-            echo "<td>$array9[5]</td>";
-            echo "<td>$array11[5]</td>";
-            echo "<td>$array13[5]</td>";
-            echo "<td>$array15[5]</td>";
-            echo "<td>$array17[5]</td>";
+            echo "<tr>";
+                echo "<td>$array2[0]</td>";
+                echo "<td>$array2[4]</td>";
+                echo "<td>$array4[4]</td>";
+                echo "<td>$array6[4]</td>";
+                echo "<td>$array8[5]</td>";
+                echo "<td>$array10[5]</td>";
+                echo "<td>$array12[5]</td>";
+                echo "<td>$array14[5]</td>";
+                echo "<td>$array16[5]</td>";
+                echo "<td>$array18[5]</td>";
+            echo "</tr>";
+                echo "<td>$array1[0]</td>";
+                echo "<td>$array1[4]</td>";
+                echo "<td>$array3[4]</td>";
+                echo "<td>$array5[4]</td>";
+                echo "<td>$array7[5]</td>";
+                echo "<td>$array9[5]</td>";
+                echo "<td>$array11[5]</td>";
+                echo "<td>$array13[5]</td>";
+                echo "<td>$array15[5]</td>";
+                echo "<td>$array17[5]</td>";
+        } elseif ($rowCount == 1) {
+            // all the row/column processing code goes here
+            echo "<tr>";
+                echo "<th>ID</th>";
+                echo "<th>Area</th>";
+                echo "<th>Sphericity</th>";
+                echo "<th>Volume</th>";
+                echo "<th>intensity Mean Ch = 1</th>";
+                echo "<th>intensity Mean Ch = 2</th>";
+                echo "<th>intensity Mean Ch = 3</th>";
+                echo "<th>intensity Mean Ch = 4</th>";
+                echo "<th>intensity Mean Ch = 5</th>";
+            echo "</tr>";
+
+                echo "<td>$array1[0]</td>";
+                echo "<td>$array1[4]</td>";
+                echo "<td>$array3[4]</td>";
+                echo "<td>$array5[4]</td>";
+                echo "<td>$array7[5]</td>";
+                echo "<td>$array9[5]</td>";
+                echo "<td>$array11[5]</td>";
+                echo "<td>$array13[5]</td>";
+                echo "<td>$array15[5]</td>";
+        }
     echo "</table>";
 ?>
 
@@ -716,7 +747,7 @@
             height: 30px;
             font-family: Josefin Sans;
         }";
-    echo "</style>"/
+    echo "</style>";
 
     echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapis.com/css?family=Josefin+Sans\" />";
 ?>

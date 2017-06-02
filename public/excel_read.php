@@ -1,9 +1,21 @@
 <?php
+    // code to initially count the number of files in a directory
+    $directory = "data/wd1/";
+    $filecount = 0;
+    $files = glob($directory . "*.{xls}", GLOB_BRACE);
+    if ($files){
+        $filecount = count($files);
+    }
+    echo "There are $filecount files";
+    echo "<br />";
+?>
+
+<?php
 
     //  Include PHPExcel_IOFactory
     include '../includes/PHPExcel/Classes/PHPExcel.php';
 
-    $inputFileName = 'data/one_row/Area.xls';
+    $inputFileName = 'data/wd1/Area.xls';
 
     //  Read your Excel workbook
     try {
@@ -20,8 +32,11 @@
     $highestColumn = $sheet->getHighestColumn();    // returns a char
 
     echo "The number of rows in the excel sheet is: " . $highestRow  . "<br />";
+    echo "The number of columns in the excel sheet is: " . $highestColumn  . "<br />";
     $rowCount = $highestRow  - 2;
+    $colCount = PHPExcel_Cell::columnIndexFromString($highestColumn);
     echo "The number of rows in the excel sheet to be considered: " . $rowCount . "<br />";
+    echo "The number of columns in the excel sheet to be considered: " . $colCount . "<br />";
 
     // Get the column number ,i.e., convert the char to an int
     $colNumber = PHPExcel_Cell::columnIndexFromString($highestColumn);
@@ -82,7 +97,7 @@
 ?>
 
 <?php
-    $inputFileName = 'data/one_row/Volume.xls';
+    $inputFileName = 'data/wd1/Volume.xls';
 
     //  Read your Excel workbook
     try {
@@ -154,7 +169,7 @@
 ?>
 
 <?php
-    $inputFileName = 'data/one_row/Sphericity.xls';
+    $inputFileName = 'data/wd1/Sphericity.xls';
 
     //  Read your Excel workbook
     try {
@@ -226,7 +241,7 @@
 ?>
 
 <?php
-    $inputFileName = 'data/Intensity Mean Ch=1.xls';
+    $inputFileName = 'data/wd1/Intensity Mean Ch=1.xls';
 
     //  Read your Excel workbook
     try {
@@ -297,7 +312,7 @@
     echo "</table>";
 ?>
 <?php
-    $inputFileName = 'data/Intensity Mean Ch=2.xls';
+    $inputFileName = 'data/wd1/Intensity Mean Ch=2.xls';
 
     //  Read your Excel workbook
     try {
@@ -368,7 +383,7 @@
     echo "</table>";
 ?>
 <?php
-    $inputFileName = 'data/one_row/Intensity Mean Ch=3.xls';
+    $inputFileName = 'data/wd1/Intensity Mean Ch=3.xls';
 
     //  Read your Excel workbook
     try {
@@ -439,7 +454,7 @@
     echo "</table>";
 ?>
 <?php
-    $inputFileName = 'data/one_row/Intensity Mean Ch=4.xls';
+    $inputFileName = 'data/wd1/Intensity Mean Ch=4.xls';
 
     //  Read your Excel workbook
     try {
@@ -510,7 +525,7 @@
     echo "</table>";
 ?>
 <?php
-    $inputFileName = 'data/one_row/Intensity Mean Ch=5.xls';
+    $inputFileName = 'data/wd1/Intensity Mean Ch=5.xls';
 
     //  Read your Excel workbook
     try {
@@ -581,8 +596,8 @@
     echo "</table>";
 ?>
 <?php
-    if ($rowCount == 2) {
-        $inputFileName = 'data/one_row/Intensity Mean Ch=6.xls';
+    if ($rowCount == 2 && $filecount == 10) {
+        $inputFileName = 'data/wd1/Intensity Mean Ch=6.xls';
 
         //  Read your Excel workbook
         try {
@@ -661,14 +676,14 @@
     echo "<hr />";
     echo "<p>Combining values from individual tables above:</p>";
     // this segment of the sript is meant to combine the individual arrays into a single table
-    echo "<table>";
+    echo "<table id=\"table_wd1\">";
         // all the row/column processing code goes here
-        if ($rowCount == 2) {
+        if ($rowCount == 2 && $filecount == 9) {
             echo "<tr>";
                 echo "<th>ID</th>";
                 echo "<th>Area</th>";
-                echo "<th>Sphericity</th>";
                 echo "<th>Volume</th>";
+                echo "<th>Sphericity</th>";
                 echo "<th>intensity Mean Ch = 1</th>";
                 echo "<th>intensity Mean Ch = 2</th>";
                 echo "<th>intensity Mean Ch = 3</th>";
@@ -704,8 +719,8 @@
             echo "<tr>";
                 echo "<th>ID</th>";
                 echo "<th>Area</th>";
-                echo "<th>Sphericity</th>";
                 echo "<th>Volume</th>";
+                echo "<th>Sphericity</th>";
                 echo "<th>intensity Mean Ch = 1</th>";
                 echo "<th>intensity Mean Ch = 2</th>";
                 echo "<th>intensity Mean Ch = 3</th>";
@@ -722,8 +737,42 @@
                 echo "<td>$array11[5]</td>";
                 echo "<td>$array13[5]</td>";
                 echo "<td>$array15[5]</td>";
+        } elseif ($rowCount == 2 && $filecount == 8) {
+            echo "<tr>";
+                echo "<th>ID</th>";
+                echo "<th>Area</th>";
+                echo "<th>Volume</th>";
+                echo "<th>Sphericity</th>";
+                echo "<th>intensity Mean Ch = 1</th>";
+                echo "<th>intensity Mean Ch = 2</th>";
+                echo "<th>intensity Mean Ch = 3</th>";
+                echo "<th>intensity Mean Ch = 4</th>";
+                echo "<th>intensity Mean Ch = 5</th>";
+            echo "</tr>";
+
+            echo "<tr>";
+                echo "<td>$array2[0]</td>";
+                echo "<td>$array2[4]</td>";
+                echo "<td>$array4[4]</td>";
+                echo "<td>$array6[4]</td>";
+                echo "<td>$array8[5]</td>";
+                echo "<td>$array10[5]</td>";
+                echo "<td>$array12[5]</td>";
+                echo "<td>$array14[5]</td>";
+                echo "<td>$array16[5]</td>";
+            echo "</tr>";
+                echo "<td>$array1[0]</td>";
+                echo "<td>$array1[4]</td>";
+                echo "<td>$array3[4]</td>";
+                echo "<td>$array5[4]</td>";
+                echo "<td>$array7[5]</td>";
+                echo "<td>$array9[5]</td>";
+                echo "<td>$array11[5]</td>";
+                echo "<td>$array13[5]</td>";
+                echo "<td>$array15[5]</td>";
         }
     echo "</table>";
+    echo "<br />";
 ?>
 
 <?php
@@ -750,4 +799,70 @@
     echo "</style>";
 
     echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapis.com/css?family=Josefin+Sans\" />";
+    echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/main.css\" />";
+    echo "<head><title>Processed Worksheets</title></head>";
 ?>
+
+<!DOCTYPE HTML>
+<button  onclick="tablesToExcel(['table_wd1'], ['TableFromWD1'], 'TableFromWD1.xls', 'Excel')">Export to Excel</button>
+
+<script type="text/javascript">
+    var tablesToExcel = (function() {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+        , tmplWorkbookXML = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'
+          + '<DocumentProperties xmlns="urn:schemas-microsoft-com:office:office"><Author>Axel Richter</Author><Created>{created}</Created></DocumentProperties>'
+          + '<Styles>'
+          + '<Style ss:ID="Currency"><NumberFormat ss:Format="Currency"></NumberFormat></Style>'
+          + '<Style ss:ID="Date"><NumberFormat ss:Format="Medium Date"></NumberFormat></Style>'
+          + '</Styles>'
+          + '{worksheets}</Workbook>'
+        , tmplWorksheetXML = '<Worksheet ss:Name="{nameWS}"><Table>{rows}</Table></Worksheet>'
+        , tmplCellXML = '<Cell{attributeStyleID}{attributeFormula}><Data ss:Type="{nameType}">{data}</Data></Cell>'
+        , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+        , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+        return function(tables, wsnames, wbname, appname) {
+          var ctx = "";
+          var workbookXML = "";
+          var worksheetsXML = "";
+          var rowsXML = "";
+
+          for (var i = 0; i < tables.length; i++) {
+            if (!tables[i].nodeType) tables[i] = document.getElementById(tables[i]);
+            for (var j = 0; j < tables[i].rows.length; j++) {
+              rowsXML += '<Row>'
+              for (var k = 0; k < tables[i].rows[j].cells.length; k++) {
+                var dataType = tables[i].rows[j].cells[k].getAttribute("data-type");
+                var dataStyle = tables[i].rows[j].cells[k].getAttribute("data-style");
+                var dataValue = tables[i].rows[j].cells[k].getAttribute("data-value");
+                dataValue = (dataValue)?dataValue:tables[i].rows[j].cells[k].innerHTML;
+                var dataFormula = tables[i].rows[j].cells[k].getAttribute("data-formula");
+                dataFormula = (dataFormula)?dataFormula:(appname=='Calc' && dataType=='DateTime')?dataValue:null;
+                ctx = {  attributeStyleID: (dataStyle=='Currency' || dataStyle=='Date')?' ss:StyleID="'+dataStyle+'"':''
+                       , nameType: (dataType=='Number' || dataType=='DateTime' || dataType=='Boolean' || dataType=='Error')?dataType:'String'
+                       , data: (dataFormula)?'':dataValue
+                       , attributeFormula: (dataFormula)?' ss:Formula="'+dataFormula+'"':''
+                      };
+                rowsXML += format(tmplCellXML, ctx);
+              }
+              rowsXML += '</Row>'
+            }
+            ctx = {rows: rowsXML, nameWS: wsnames[i] || 'Sheet' + i};
+            worksheetsXML += format(tmplWorksheetXML, ctx);
+            rowsXML = "";
+          }
+
+          ctx = {created: (new Date()).getTime(), worksheets: worksheetsXML};
+          workbookXML = format(tmplWorkbookXML, ctx);
+
+          console.log(workbookXML);     // for debugging
+
+          var link = document.createElement("A");
+          link.href = uri + base64(workbookXML);
+          link.download = wbname || 'Workbook.xls';
+          link.target = '_blank';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+    })();
+</script>

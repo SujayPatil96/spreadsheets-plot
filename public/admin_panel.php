@@ -77,7 +77,7 @@
 
 			<label for="imean6_sheet">Attach a copy of the Intensity Mean (Ch = 6) Excel sheet here:</label>
 			<input type="file" id="imean6_sheet" name="imean6_sheet" />
-			<br /><br /><br /><br /><br />
+			<br /><br /><br /><br />
 
 	  <button type="submit" name="submit" id="submit">Submit</button>
 	</form>

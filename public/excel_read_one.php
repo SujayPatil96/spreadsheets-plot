@@ -58,8 +58,6 @@
         }
     }
 
-    // echo "<hr />";
-
     // processing to reverse all the values in associative array
     $k = array_keys($subsetSeq);
 
@@ -78,8 +76,6 @@
     // print_r($array2);
     // echo "<br />";
     // print_r($array1);
-
-    // echo "<hr />";
 
     // output the array data into an HTML table
     // echo "<table>";

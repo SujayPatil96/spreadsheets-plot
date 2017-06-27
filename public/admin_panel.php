@@ -79,6 +79,9 @@
 
 			<label for="imean6_sheet">Attach a copy of the Intensity Mean (Ch = 6) Excel sheet here:</label>
 			<input type="file" id="imean6_sheet1" name="imean6_sheet1" />
+
+			<!-- <label for="batch">Attach all sheets for Image 1:</label>
+			<input type="file" id="batch" name="image1[]" multiple /> -->
 		</div>
 		<div class="vertical_line2">
 			<label for="area_sheet">Attach a copy of the Area Excel sheet here:</label>

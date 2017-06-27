@@ -605,7 +605,7 @@
     // echo "</table>";
 ?>
 <?php
-    if ($rowCount == 2 && $filecount == 10) {
+    if ($rowCount == 2 && $filecount == 9) {
         $inputFileName = 'data/wd2/Intensity Mean Ch=6.xls';
 
         //  Read your Excel workbook

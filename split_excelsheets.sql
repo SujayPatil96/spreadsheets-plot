@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2017 at 09:11 AM
+-- Generation Time: Jul 03, 2017 at 06:38 AM
 -- Server version: 5.7.9
 -- PHP Version: 5.6.16
 
@@ -34,15 +34,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `userPass` varchar(255) NOT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `userEmail` (`userEmail`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`userId`, `userName`, `userEmail`, `userPass`) VALUES
-(7, 'sujay', 'abc@xyz.com', '03dd17de03803ed7e5224688a528c2fbb7b2bfe36ef619092b460ca640ab24c2'),
-(8, 'sujay', 'xyz@abc.com', 'dd1fffc77a55c5dea9c3060cf63543e72bbacc47af160a8b0bb64ae6bf94f23f');
+(8, 'sujay', 'xyz@abc.com', 'dd1fffc77a55c5dea9c3060cf63543e72bbacc47af160a8b0bb64ae6bf94f23f'),
+(9, 'admin', 'admin@ncbs.com', '11530f03e593674f6a9bb473d999f6de83ee61cf24ce222cb6f07beca578b206');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
